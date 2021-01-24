@@ -7,3 +7,5 @@ const ProcedimientoSchema = new Schema({
         required: true
     }
 })
+
+export default mongoose.model('Procedimiento', ProcedimientoSchema );

@@ -8,8 +8,23 @@ const ReparacionSchema = new Schema({
         default: Date.now,
         required: true
     },
-    taller: {},
-    procedimeinto: {String},
-    total: Number,
-    repuestos: [{nombre: String}]
+    taller: {
+        nombre: {
+            type: String
+        },
+        ubicacion: {
+            longitud: Number,
+            latitud: Number
+        }
+    },
+    procedimiento: [{
+        nombre: String
+    }],
+    repuestos: [{
+        nombre: String
+    }],
+    total: Number
+    
 })
+
+export default mongoose.model('Reparacion', ReparacionSchema );

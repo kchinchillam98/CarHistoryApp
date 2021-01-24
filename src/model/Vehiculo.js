@@ -4,10 +4,16 @@ import {mongoose, Schema} from 'mongoose';
 const VehiculoSchema = new Schema({
     placa: {
         type: String,
+        required: true,
+        unique: true
+    },
+    year: {
+        type: Number,
         required: true
     },
-    year: Number,
     modelo: String,
     marca: String,
     color: String
 })
+
+export default mongoose.model('Vehiculo', VehiculoSchema );
