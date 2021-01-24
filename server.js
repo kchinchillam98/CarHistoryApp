@@ -1,14 +1,10 @@
 import express from 'express'
-import mongoose from 'mongoose';
 import 'dotenv/config'
 import Endpoints from './src/routes/Endpoints'
+import conectar from './DatabaseConnection'
+import Marca from './src/model/Marca'
 
 const app = express();
-
-mongoose.connect(process.env.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true}, () => {
-    console.log('connected to mongoatlas');
-});
-
 
 app.use(Endpoints);
 
@@ -18,6 +14,5 @@ app.listen(PORT, () => {
 });
 
 
-export default app;
 
 

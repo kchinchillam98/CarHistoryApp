@@ -1,5 +1,5 @@
-import {mongoose, Schema} from 'mongoose';
-//const {Schema} = mongoose;
+import mongoose from 'mongoose';
+const {Schema} = mongoose;
 
 const MarcaSchema = new Schema({
     nombre: {
