@@ -1,7 +1,7 @@
 import {Router} from 'express'
 import Vehiculo from './Vehiculo'
 import Taller from './Taller'
-import Marca from './Marca'
+import Marca from './MarcaEndpoint'
 
 const router = Router();
 
