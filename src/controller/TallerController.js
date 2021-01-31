@@ -1,6 +1,6 @@
-import Marca from '../model/Marca'
+import Taller from '../model/Taller'
 
-class MarcaController {
+class TallerController {
     constructor() {
 
     }
@@ -8,8 +8,8 @@ class MarcaController {
     async findAll() {
         try {
             console.log('entro a findall ')
-            let MarcaList = await Marca.find({});
-            return MarcaList
+            let TallerList = await Taller.find({});
+            return TallerList
         } catch (error) {
             console.log('error de mongo' + error);
             throw 'error de mongo';
@@ -18,8 +18,8 @@ class MarcaController {
 
     async findById(id){
         try {
-            let MarcaResult = await Marca.findById(id);
-            return MarcaResult;
+            let TallerResult = await Taller.findById(id);
+            return TallerResult;
         } catch (error) {
             console.log('error de mongo' + error);
             throw 'error de mongo';
@@ -29,11 +29,11 @@ class MarcaController {
     async create(entity) {
         try {
             console.log('entro a crear :v')
-            let NewMarca = new Marca({
+            let NewTaller = new Taller({
                 nombre: entity.nombre,
-                modelos: entity.modelos
+                ubicacion: entity.ubicacion
             });
-            let result = await NewMarca.save();
+            let result = await NewTaller.save();
             console.log(result);
 
         } catch (error) {
@@ -44,8 +44,8 @@ class MarcaController {
 
     async update(id, entity) {
         try {
-            let MarcaResult = await Marca.findByIdAndUpdate(id, entity, {new: true});
-            return MarcaResult;     
+            let TallerResult = await Taller.findByIdAndUpdate(id, entity, {new: true});
+            return TallerResult;     
         } catch (error) {
             console.log(error);
             throw 'error de mongo';    
@@ -54,8 +54,8 @@ class MarcaController {
 
     async delete(id) {
         try {
-          let deletedMarca = await Marca.findByIdAndDelete(id);  
-          return deletedMarca;
+          let deletedTaller = await Taller.findByIdAndDelete(id);  
+          return deletedTaller;
         } catch (error) {
             console.log(error);
             throw 'error de mongo';
@@ -65,4 +65,4 @@ class MarcaController {
 
 }
 
-export default MarcaController;
+export default TallerController;

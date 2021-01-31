@@ -1,6 +1,6 @@
-import Marca from '../model/Marca'
+import Vehiculo from '../model/Vehiculo'
 
-class MarcaController {
+class VehiculoController {
     constructor() {
 
     }
@@ -8,8 +8,8 @@ class MarcaController {
     async findAll() {
         try {
             console.log('entro a findall ')
-            let MarcaList = await Marca.find({});
-            return MarcaList
+            let VehiculoList = await Vehiculo.find({});
+            return VehiculoList
         } catch (error) {
             console.log('error de mongo' + error);
             throw 'error de mongo';
@@ -18,8 +18,8 @@ class MarcaController {
 
     async findById(id){
         try {
-            let MarcaResult = await Marca.findById(id);
-            return MarcaResult;
+            let VehiculoResult = await Vehiculo.findById(id);
+            return VehiculoResult;
         } catch (error) {
             console.log('error de mongo' + error);
             throw 'error de mongo';
@@ -29,11 +29,14 @@ class MarcaController {
     async create(entity) {
         try {
             console.log('entro a crear :v')
-            let NewMarca = new Marca({
-                nombre: entity.nombre,
-                modelos: entity.modelos
+            let NewVehiculo = new Vehiculo({
+                placa: entity.placa,
+                year: entity.year,
+                modelo: entity.modelo,
+                marca: entity.marca,
+                color: entity.color
             });
-            let result = await NewMarca.save();
+            let result = await NewVehiculo.save();
             console.log(result);
 
         } catch (error) {
@@ -44,8 +47,8 @@ class MarcaController {
 
     async update(id, entity) {
         try {
-            let MarcaResult = await Marca.findByIdAndUpdate(id, entity, {new: true});
-            return MarcaResult;     
+            let VehiculoResult = await Vehiculo.findByIdAndUpdate(id, entity, {new: true});
+            return VehiculoResult;     
         } catch (error) {
             console.log(error);
             throw 'error de mongo';    
@@ -54,8 +57,8 @@ class MarcaController {
 
     async delete(id) {
         try {
-          let deletedMarca = await Marca.findByIdAndDelete(id);  
-          return deletedMarca;
+          let deletedVehiculo = await Vehiculo.findByIdAndDelete(id);  
+          return deletedVehiculo;
         } catch (error) {
             console.log(error);
             throw 'error de mongo';
@@ -65,4 +68,4 @@ class MarcaController {
 
 }
 
-export default MarcaController;
+export default VehiculoController;
