@@ -17,7 +17,7 @@ const ReparacionSchema = new Schema({
             latitud: Number
         }
     },
-    procedimiento: [{
+    procedimientos: [{
         nombre: String
     }],
     repuestos: [{

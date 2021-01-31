@@ -52,20 +52,20 @@ router.post('/', async (request, response) => {
 
     } catch (error) {
         response.status(500).json({ message: 'Ocurrio un error al crear marca', error });
-        
+
     }
 })
 
 router.put('/:id', async (request, response) => {
     let id = request.params.id;
 
-    if ((id == null || id === undefined) && (request.body == null || request.body === undefined)) {
+    if ((id == null || id === undefined) && Utils.isEmpty(request.body)) {
         response.status(400).json({ message: 'id o cuerpo nulos' });
         return;
     }
 
     try {
-        let Result = await MarcaControllerI.update(reques.params.id, request.body);
+        let Result = await MarcaControllerI.update(id, request.body);
         response.status(200).json({ message: 'updated', Result });
 
     } catch (error) {
