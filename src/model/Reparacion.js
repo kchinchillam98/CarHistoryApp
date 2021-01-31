@@ -23,6 +23,7 @@ const ReparacionSchema = new Schema({
     repuestos: [{
         nombre: String
     }],
+    descripcion: String,
     total: Number
     
 })
