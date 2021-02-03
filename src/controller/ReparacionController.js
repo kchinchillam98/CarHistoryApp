@@ -32,11 +32,8 @@ class ReparacionController {
             let NewReparacion = new Reparacion({
                 vehiculo: entity.vehiculo,
                 fecha: entity.fecha,
-                taller: {
-                    nombre: entity.taller.nombre,
-                    ubicacion: entity.taller.ubicacion
-                },
-                procedimiento: entity.procedimientos,
+                taller: entity.taller,
+                procedimientos: entity.procedimientos,
                 repuestos: entity.repuestos,
                 total: entity.total
             });

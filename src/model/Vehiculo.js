@@ -11,8 +11,15 @@ const VehiculoSchema = new Schema({
         type: Number,
         required: true
     },
-    modelo: String,
-    marca: String,
+    marca: {
+        type: String,
+        required: true
+    },
+    modelo: {
+        type: String,
+        required: true
+    },
+    
     color: String
 })
 

@@ -9,13 +9,7 @@ const ReparacionSchema = new Schema({
         required: true
     },
     taller: {
-        nombre: {
-            type: String
-        },
-        ubicacion: {
-            longitud: Number,
-            latitud: Number
-        }
+        type: String
     },
     procedimientos: [{
         nombre: String

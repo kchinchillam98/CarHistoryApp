@@ -1,15 +1,16 @@
 import { request, response, Router } from 'express'
-import ReparacionController from '../controller/ReparacionController'
+import UsuarioController from '../controller/UsuarioController'
+import { validation } from '../model/Usuario'
 import Utils from '../Utils/Utils'
 const router = Router();
- 
-let ReparacionControllerI = new ReparacionController();
+
+let UsuarioControllerI = new UsuarioController();
 
 //findAll
 router.get('/', async (request, response) => {
     try {
-        let listaReparacion = await ReparacionControllerI.findAll();
-        response.status(200).json(listaReparacion);
+        let listaUsuario = await UsuarioControllerI.findAll();
+        response.status(200).json(listaUsuario);
 
     } catch (error) {
         console.log(`el error es ${error}`)
@@ -25,7 +26,7 @@ router.get('/:id', async (request, response) => {
         return;
     }
     try {
-        let Result = await ReparacionControllerI.findById(id);
+        let Result = await UsuarioControllerI.findById(id);
         if (Result == null) {
             response.status(404).json({ message: 'No se encontro el registro' });
         }
@@ -39,19 +40,23 @@ router.get('/:id', async (request, response) => {
 //create
 router.post('/', async (request, response) => {
     let entity = request.body;
-    console.log(entity);
-
 
     if (Utils.isEmpty(entity)) {
         response.status(400).json({ message: 'cuerpo vacio' });
         return;
     }
+
+    let { error } = validation(request.body);
+    if (error) {
+        return response.status(400).send(error);
+    }
+
     try {
-        await ReparacionControllerI.create(entity);
+        //await UsuarioControllerI.create(entity);
         response.status(201).json({ message: 'creado' });
 
     } catch (error) {
-        response.status(500).json({ message: 'Ocurrio un error al crear Reparacion', error });
+        response.status(500).json({ message: 'Ocurrio un error al crear Usuario', error });
 
     }
 })
@@ -65,12 +70,12 @@ router.put('/:id', async (request, response) => {
     }
 
     try {
-        let Result = await ReparacionControllerI.update(id, request.body);
+        let Result = await UsuarioControllerI.update(id, request.body);
         response.status(200).json({ message: 'updated', Result });
 
     } catch (error) {
         console.log(`el error es ${error}`)
-        response.status(500).json({ message: 'Ocurrio un error al modificar Reparacion', error });
+        response.status(500).json({ message: 'Ocurrio un error al modificar Usuario', error });
     }
 })
 
@@ -84,12 +89,12 @@ router.delete('/:id', async (request, response) => {
         response.status(400).json({ message: 'id nulo' })
     }
     try {
-        let result = await ReparacionControllerI.delete(id);
+        let result = await UsuarioControllerI.delete(id);
         response.status(200).json({ message: 'deleted', result });
 
     } catch (error) {
         console.log(`el error es ${error}`)
-        response.status(500).json({ message: 'Ocurrio un error al eliminar la Reparacion', error });
+        response.status(500).json({ message: 'Ocurrio un error al eliminar la Usuario', error });
     }
 })
 

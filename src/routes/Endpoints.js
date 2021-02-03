@@ -4,6 +4,7 @@ import Taller from './TallerEndpoint'
 import Marca from './MarcaEndpoint'
 import Reparacion from './ReparacionEndpoint'
 import Procedimiento from './ProcedimientoEndpoint'
+import Usuario from './UserEndpoint'
 
 const router = Router();
 
@@ -16,6 +17,7 @@ router.use('/taller', Taller);
 router.use('/marca', Marca);
 router.use('/reparacion', Reparacion);
 router.use('/procedimiento', Procedimiento);
+router.use('/usuario', Usuario)
 
 
 export default router;
