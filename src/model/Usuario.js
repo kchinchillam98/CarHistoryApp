@@ -43,5 +43,14 @@ const validation = (data) => {
     return schema.validate(data);
 }
 
+const loginValidation = (data) => {
+    const schema = Joi.object({
+        email: Joi.string().email(),
+        password: Joi.string().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).required(),
+    })
+
+    return schema.validate(data);
+}
+
 const Usuario = mongoose.model('Usuario', UsuarioSchema);
-export {Usuario, validation};
+export { Usuario, validation, loginValidation };

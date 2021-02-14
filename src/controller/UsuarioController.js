@@ -1,4 +1,5 @@
 import { Usuario } from '../model/Usuario'
+import bcrypt from 'bcryptjs'
 
 class UsuarioController {
     constructor() {
@@ -26,13 +27,26 @@ class UsuarioController {
         }
     }
 
+    /*
+    Metodo para crear usuarios
+    recive un parametro de tipo Usuario
+     */
     async create(entity) {
+        console.log('entro a crear :v');
+
+        //HASH PASSWORD
         try {
-            console.log('entro a crear :v')
+            let salt = await bcrypt.genSalt(10);
+            let hashedPassword = await bcrypt.hash(entity.password, salt);
+
             let NewUsuario = new Usuario({
                 nombre: entity.nombre,
-                modelos: entity.modelos
+                apellido: entity.apellido,
+                user: entity.user,
+                password: hashedPassword,
+                email: entity.email
             });
+
             let result = await NewUsuario.save();
             console.log(result);
 
@@ -41,6 +55,7 @@ class UsuarioController {
             throw error;
         }
     }
+    
 
     async update(id, entity) {
         try {

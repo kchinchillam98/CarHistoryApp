@@ -1,7 +1,9 @@
 import { request, response, Router } from 'express'
 import UsuarioController from '../controller/UsuarioController'
-import { validation } from '../model/Usuario'
+import { validation, Usuario, loginValidation } from '../model/Usuario'
 import Utils from '../Utils/Utils'
+import bcrypt from 'bcryptjs'
+
 const router = Router();
 
 let UsuarioControllerI = new UsuarioController();
@@ -41,24 +43,48 @@ router.get('/:id', async (request, response) => {
 router.post('/', async (request, response) => {
     let entity = request.body;
 
-    if (Utils.isEmpty(entity)) {
-        response.status(400).json({ message: 'cuerpo vacio' });
-        return;
-    }
+    //VALIDANDO DATA USANDO JOI
+    let { error } = validation(entity);
+    if (error) return response.status(400).send(error.details);
 
-    let { error } = validation(request.body);
-    if (error) {
-        return response.status(400).send(error);
-    }
+    //validar user duplicado
+    //let emailOrUserExist = await Usuario.findOne({}).or([ { email: entity.email}, { user: entity.user}]);
+    let emailExist = await Usuario.findOne({ email: entity.email });
+    let UserExist = await Usuario.findOne({ user: entity.user });
+
+    if (emailExist) return response.status(400).json({ error: 'email ya existe' });
+    if (UserExist) return response.status(400).json({ error: 'user ya existe' });
 
     try {
-        //await UsuarioControllerI.create(entity);
+        await UsuarioControllerI.create(entity);
         response.status(201).json({ message: 'creado' });
 
     } catch (error) {
         response.status(500).json({ message: 'Ocurrio un error al crear Usuario', error });
 
     }
+})
+
+/* 
+Metodo para hacer login de usuarios
+*/
+router.post('/login', async (request, response) => {
+    let entity = request.body;
+
+    //VALIDANDO DATA USANDO JOI
+    let { error } = loginValidation(request.body);
+    if (error) return response.status(400).json({ error: error.details[0].message});
+
+    //VALIDAR QUE EMAIL EXISTA
+    let user = await Usuario.findOne({ email: entity.email });
+    if (!user) return response.status(400).json({ error: 'Email no encontrado' });
+
+    //VALIDANDO PASSWORD
+    let validPassword = await bcrypt.compare(entity.password, user.password);
+    if(!validPassword)  return response.status(400).json({ error: 'Password invalida'});
+
+    response.send(' Logged in');
+
 })
 
 router.put('/:id', async (request, response) => {
