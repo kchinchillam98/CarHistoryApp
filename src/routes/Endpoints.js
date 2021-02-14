@@ -5,10 +5,11 @@ import Marca from './MarcaEndpoint'
 import Reparacion from './ReparacionEndpoint'
 import Procedimiento from './ProcedimientoEndpoint'
 import Usuario from './UserEndpoint'
+import Utils from '../Utils/Utils'
 
 const router = Router();
 
-router.get('/', (request, response) => {
+router.get('/', Utils.verifyToken , (request, response) => {
     response.send('hola');
 })
 

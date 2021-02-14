@@ -3,6 +3,8 @@ import UsuarioController from '../controller/UsuarioController'
 import { validation, Usuario, loginValidation } from '../model/Usuario'
 import Utils from '../Utils/Utils'
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+import 'dotenv/config'
 
 const router = Router();
 
@@ -83,7 +85,9 @@ router.post('/login', async (request, response) => {
     let validPassword = await bcrypt.compare(entity.password, user.password);
     if(!validPassword)  return response.status(400).json({ error: 'Password invalida'});
 
-    response.send(' Logged in');
+    //ASIGNANDO TOKEN 
+    let token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
+    response.header('Authorization', token).send(token);
 
 })
 
