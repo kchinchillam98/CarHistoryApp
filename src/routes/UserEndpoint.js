@@ -11,7 +11,7 @@ const router = Router();
 let UsuarioControllerI = new UsuarioController();
 
 //findAll
-router.get('/', async (request, response) => {
+router.get('/', Utils.verifyToken, async (request, response) => {
     try {
         let listaUsuario = await UsuarioControllerI.findAll();
         response.status(200).json(listaUsuario);
@@ -23,7 +23,7 @@ router.get('/', async (request, response) => {
 })
 
 //findById
-router.get('/:id', async (request, response) => {
+router.get('/:id', Utils.verifyToken,  async (request, response) => {
     let id = request.params.id;
     if (id == null || id === undefined) {
         response.status(400).json({ message: 'id nulo' });
@@ -86,12 +86,12 @@ router.post('/login', async (request, response) => {
     if(!validPassword)  return response.status(400).json({ error: 'Password invalida'});
 
     //ASIGNANDO TOKEN 
-    let token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
-    response.header('Authorization', token).send(token);
+    let token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, { expiresIn: '10m'});
+    response.status(200).json({ AccessToken: token });
 
 })
 
-router.put('/:id', async (request, response) => {
+router.put('/:id', Utils.verifyToken,  async (request, response) => {
     let id = request.params.id;
 
     if ((id == null || id === undefined) && Utils.isEmpty(request.body)) {
@@ -111,7 +111,7 @@ router.put('/:id', async (request, response) => {
 
 
 //delete
-router.delete('/:id', async (request, response) => {
+router.delete('/:id', Utils.verifyToken,  async (request, response) => {
     let id = request.params.id;
     console.log(id);
 

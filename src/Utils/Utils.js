@@ -13,7 +13,7 @@ const utils = {
             request.user = verificado;
             next();
         } catch (error) {
-            response.status(400).json({ error: 'Token invalido'});
+            response.status(403).json({ error: 'Token invalido'});
         }
     }
 }

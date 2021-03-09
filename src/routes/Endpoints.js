@@ -13,11 +13,11 @@ router.get('/', Utils.verifyToken , (request, response) => {
     response.send('hola');
 })
 
-router.use('/vehiculo', Vehiculo);
-router.use('/taller', Taller);
-router.use('/marca', Marca);
-router.use('/reparacion', Reparacion);
-router.use('/procedimiento', Procedimiento);
+router.use('/vehiculo', Utils.verifyToken, Vehiculo);
+router.use('/taller', Utils.verifyToken, Taller);
+router.use('/marca', Utils.verifyToken ,Marca);
+router.use('/reparacion', Utils.verifyToken, Reparacion);
+router.use('/procedimiento', Utils.verifyToken, Procedimiento);
 router.use('/usuario', Usuario)
 
 
