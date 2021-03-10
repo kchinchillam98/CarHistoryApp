@@ -1,6 +1,6 @@
 import express from 'express'
 import 'dotenv/config'
-import Endpoints from './src/routes/Endpoints'
+import Endpoints from './routes/Endpoints'
 import cors from 'cors'
 import conectar from './DatabaseConnection'
 
@@ -11,7 +11,7 @@ app.use(cors());
 // Se incluyen los Endpoints por medio del middleware use
 app.use(Endpoints);
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 80;
 app.listen(PORT, () => {
     console.log(`server escuchando en puerto ${PORT}`);
 });
