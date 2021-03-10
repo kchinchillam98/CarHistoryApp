@@ -11,5 +11,7 @@ USER node
 ##ENV NODE_ENV production
 RUN git clone https://github.com/kchinchillam98/CarHistoryApp.git && cd CarHistoryApp && \ 
     npm install && npm run build
+COPY .env ./CarHistoryApp
 
-CMD ["node", "/app/CarHistoryApp/dist/server.js"]
+WORKDIR /app/CarHistoryApp
+CMD ["npm", "run", "start"]
