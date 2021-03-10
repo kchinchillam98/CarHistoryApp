@@ -11,7 +11,7 @@ app.use(cors());
 // Se incluyen los Endpoints por medio del middleware use
 app.use(Endpoints);
 
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`server escuchando en puerto ${PORT}`);
 });
